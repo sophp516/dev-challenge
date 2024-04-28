@@ -1,0 +1,11 @@
+{
+  "name": "dev-challenge",
+  "version": "1.0.0",
+  "description": "dev challenge for dali internal transfer",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sophie Park",
+  "license": "ISC"
+}
