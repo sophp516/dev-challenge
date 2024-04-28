@@ -1,0 +1,124 @@
+.recipe-card {
+    display: flex;
+    flex-direction: row;
+    padding-top: 40px;
+    width: 100%;
+}
+
+.recipe-img {
+    width: 250px;
+    height: 250px;
+    min-width: 250px;
+    min-height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-left: 10%;
+}
+
+.recipe-detail {
+    padding-left: 20px;
+    width: 100%;
+}
+
+.recipe-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.recipe-date {
+    background-color: rgb(244, 244, 244);
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    color:rgb(106, 106, 106);
+}
+
+.recipe-category {
+    background-color: rgb(244, 244, 244);
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    margin-left: 10px;
+    color:rgb(106, 106, 106);
+}
+
+.recipe-name {
+    font-size: 25px;
+}
+
+.recipe-description {
+    width: 90%;
+    height: 50px;
+    border-bottom: 2px solid rgb(202, 202, 202);
+}
+
+.ingredient-span {
+    padding: 3px;
+}
+
+.name-and-unfold {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+    margin-right: 30px;
+}
+
+.unfold-button {
+    background-color: inherit;
+    border: none;
+}
+
+.pi-angle {
+    font-size: 20px;
+}
+
+.recipe-order-num {
+    background-color: rgb(255, 233, 133);
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 25px;
+    font-size: 19px;
+    margin-right: 10px;
+}
+
+.recipe-main-fold {
+    margin-left: 15%;
+    margin-top: 20px;
+}
+
+.recipe-order-text-num {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.recipe-order-span {
+    font-size: 20px;
+}
+
+.recipe-name-ranking-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.recipe-ranking {
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    background-color: darkturquoise;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    margin-right: 50px;
+}
