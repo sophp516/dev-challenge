@@ -107,7 +107,7 @@ export const getallcategories = async (req, res) => {
     try {
         const allcategories = await Category.find().populate('categoryRecipes');
 
-        if (!allcategories || allcategories.length === 0) return res.status.json([]);
+        if (!allcategories || allcategories.length === 0) return res.status(200).json([]);
         return res.status(200).json(allcategories)
     } catch (err) {
         console.log(err)
@@ -146,3 +146,17 @@ export const getCategoryName = async (req, res) => {
         return res.status(500).json({ error: "Internal server error" });
     }
 }
+
+export const deleteAllCategories = async (req, res) => {
+    try {
+      // Use Mongoose to delete all documents from the Category collection
+      await Category.deleteMany();
+  
+      // If successful, return a success message
+      return res.status(200).json({ message: "All categories deleted successfully" });
+    } catch (err) {
+      // If an error occurs, log the error and return a 500 status with an error message
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  };

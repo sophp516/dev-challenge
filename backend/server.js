@@ -6,10 +6,13 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import connectToMongoDB from "./db/mongodb.js";
 import cookieParser from "cookie-parser";
+import path from 'path';
 
 
 const app = express();
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8082;
+
+const __dirname = path.resolve();
 
 dotenv.config();
 
@@ -22,6 +25,12 @@ app.use(cookieParser());
 app.use("/api/recipe", recipeRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+
+app.use(express.static(path.join(__dirname, "/frontend/dist")))
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"))
+})
 
 
 app.listen(PORT, () => {

@@ -1,5 +1,5 @@
 import express from 'express';
-import { post, getallposts, getallcategories, postCategoryName, getCategoryName } from '../controllers/recipe.controllers.js';
+import { deleteAllCategories, post, getallposts, getallcategories, postCategoryName, getCategoryName } from '../controllers/recipe.controllers.js';
 import protectRoute from "../middleware/protectRoute.js";
 
 const router = express.Router();
@@ -13,6 +13,8 @@ router.get("/getallcategories", protectRoute, getallcategories);
 router.post("/postcategoryname", protectRoute, postCategoryName);
 
 router.get("/getcategoryname", protectRoute, getCategoryName);
+
+router.delete("/reset", protectRoute, deleteAllCategories);
 
 
 export default router;

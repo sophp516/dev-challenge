@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useAuthContext } from './context/AuthContext.jsx';
+import { useEffect, useRef } from 'react';
 import Home from './pages/Home/Home';
 import Feed from './pages/Feed/Feed';
 import Post from './pages/Post/Post';
@@ -9,6 +10,7 @@ import Leaderboard from './pages/Leaderboard/Leaderboard.jsx';
 import useGetFavorites from './hooks/useGetFavorites.js';
 import './App.css';
 import { useQuery } from 'react-query';
+import usePostCategory from './hooks/usePostCategory.js'
 
 
 const fetchCategoryName = async () => {
@@ -19,6 +21,38 @@ const fetchCategoryName = async () => {
   }
   return data;
 };
+
+const deleteAllCategories = async () => {
+  try {
+    const response = await fetch('/api/recipe/reset', {
+      method: 'DELETE'
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete categories');
+    }
+    console.log('Categories deleted successfully');
+  } catch (error) {
+    console.error('Error deleting categories:', error.message);
+  }
+};
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      const id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
 
 function App() {
   /* const [recipeList, setRecipeList] = useState([
@@ -46,21 +80,36 @@ function App() {
   
   const {authUser} = useAuthContext();
   const {favorites} = useGetFavorites();
+  const {postCategory} = usePostCategory();
   
-  /* const resetCategories = async () => {
+  const resetCategories = async () => {
     try {
-        const response = await fetch('https://api.api-ninjas.com/v1/randomword')
+      const response = await fetch('https://api.api-ninjas.com/v1/randomword', {
+        method: 'GET',
+        headers: {
+          'X-Api-Key': 'AGEZiMixgNErKW806mGB9A==O0V2p9jyggiISEvF'
+        }
+      });
         const data = await response.json();
+        console.log(data.word)
 
-        await postCategory(data);
-        await Category.deleteMany({});
+        await postCategory(data.word);
+        await deleteAllCategories();
         console.log('Category collection reset successfully.');
     } catch (error) {
         console.error('Error resetting Category collection:', error.message);
     }
-  }; */
+  };
 
-  // cron.schedule('0 0 * * *', resetCategories);
+  useInterval(() => {
+    /* const now = new Date();
+    if (now.getHours() === 0 && now.getMinutes() === 0) {
+      resetCategories();
+    } */
+    resetCategories();
+  }, 1000 * 60); // Check every minute
+
+  
 
   const { data: categoryName } = useQuery('categoryName', fetchCategoryName);
 
