@@ -1,5 +1,5 @@
 ## Instruction
-To access deployed website, go to: 
+To access deployed website, go to: https://dev-challenge-j8ry.onrender.com
 
 In order to run the code locally
 1. clone the repo
