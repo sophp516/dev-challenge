@@ -1,0 +1,22 @@
+.home {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.droppable-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-top: 10%;
+    margin-left: 15%;
+}
+
+.draggable-container {
+    margin-top: 12%;
+    margin-left: 5%;
+}
+
+.draggable-container {
+    text-align: center;
+}

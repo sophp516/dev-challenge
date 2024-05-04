@@ -14,6 +14,7 @@ const useGetInfo = () => {
         }
 
         const data = await response.json();
+        console.log(data);
         return data.totalGlycemicLoad;
 
         } catch (error) {

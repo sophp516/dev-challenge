@@ -1,10 +1,11 @@
 import { NavLink, useNavigate} from "react-router-dom";
-import { useState, useRef, useEffect  } from "react";
+import { useState, useRef, useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import 'primeicons/primeicons.css';
 import './Post.css';
-import RecipeOrder from "../../components/RecipeOrder/RecipeOrder";
-import useGetInfo from "../../hooks/useGetInfo";
+import RecipeOrder from "../../components/RecipeOrder/RecipeOrder.jsx";
+import useGetInfo from "../../hooks/useGetInfo.js";
+import usePost from "../../hooks/usePostRecipe.js";
 
 
 const Post = (props) => {
@@ -15,8 +16,10 @@ const Post = (props) => {
         ingredient: [],
         imageSrc: '',
         recipeMain: [],
-        ranking: '',
     })
+
+    const { postHook } = usePost();
+    const [isCategory, setIsCategory] = useState(false);
 
     const [submitState, setSubmitState] = useState(false);
     const [editIdx, setEditIdx] = useState(-2);
@@ -25,12 +28,12 @@ const Post = (props) => {
     const navigateTo = useNavigate();
     const inputRef = useRef(null);
     const [ingredientChange, setIngredientChange] = useState('');
-    const [ingredientMatches, setIngredientMatches] = useState([]);
+    // const [ingredientMatches, setIngredientMatches] = useState([]);
     const [ingredientBubblesClick, setIngredientBubblesClick] = useState(false);
     const { getInfo } = useGetInfo();
 
 
-    const handleIngredientClick = async () => {
+    /* const handleIngredientClick = async () => {
         if (ingredientChange.trim() !== '') { // Check if ingredient is not empty
             
             const response = await fetch(`https://api.spoonacular.com/food/ingredients/search?apiKey=619ae524e94941c78ce0e22b8b11c465&query=${ingredientChange}&number=5&sortDirection=desc`);
@@ -43,13 +46,17 @@ const Post = (props) => {
 
             setIngredientChange('');
         }
-    }
+    } */
+
+    const handleCheckboxChange = (e) => {
+        setIsCategory(e.target.checked);
+    };
 
     const handleEditIndex = (i) => {
         setEditIdx(i);
     }
 
-    const IngredientBubbles = () => {
+/*     const IngredientBubbles = () => {
         return (
             <>
             {ingredientMatches.map((item) => (
@@ -63,7 +70,7 @@ const Post = (props) => {
             ))}
         </>
         )
-    }
+    } */
 
     const handleSave = (idx, newValue) => {
         const updatedRecipeMain = [...input.recipeMain];
@@ -72,10 +79,11 @@ const Post = (props) => {
         handleEditIndex(-2);
     }
 
-    const handleClickIngredientid = (ingredientName) => {
-        const updatedIngredient = [...input.ingredient, ingredientName];
+    const handleClickIngredient = () => {
+        const updatedIngredient = [...input.ingredient, ingredientChange];
         setInput((prevInput) => ({...prevInput, ingredient: updatedIngredient}));
         setIngredientBubblesClick(false)
+        setIngredientChange('');
     }
 
     const handleRecipeOrder = () => {
@@ -119,9 +127,11 @@ const Post = (props) => {
         } else {
             alphabetRanking = "F";
         }
-        setInput((prevInput) => ({...prevInput, ranking: alphabetRanking}));
-        console.log(nutrient);
-        props.addRecipe(input)
+        // setInput((prevInput) => ({...prevInput, ranking: alphabetRanking}));
+        const newRecipeFinal = ({...input, ranking: alphabetRanking, nutrient, category: isCategory})
+        console.log(newRecipeFinal);
+        await postHook(newRecipeFinal);
+        //props.addRecipe(newRecipeFinal)
         setSubmitState(!submitState);
         navigateTo('/');
     }
@@ -144,21 +154,28 @@ const Post = (props) => {
                      
                     <div>
                         <div>
-                            <p>Choose a picture to show off your recipe!</p>
-                            <input className="imageSrc" type="file" onChange={handleImageChange} />
+                        <div className="category-div">
+                            <p>Does it fulfill {"today's"} theme?</p>
+                            <input
+                                type="checkbox"
+                                id="categoryCheckbox"
+                                name="category"
+                                checked={isCategory}
+                                onChange={handleCheckboxChange}
+                            />
                         </div>
-                        <div>
+                            <div>
+                                <p>Choose a picture to show off your recipe!</p>
+                                <input className="imageSrc" type="file" onChange={handleImageChange} />
+                            </div>
                             <p>Give a name to your recipe: </p>
                             <input placeholder="e.g. my secret recipe" className="input-name" name="recipeName" value={input.recipeName} type="text" onChange={handleChange} />
                         </div>
                         <div>
                             <p>What ingredients do you need for your recipe?</p>
                             <p><span className="post-ingredient-span">ingredients: </span>{input.ingredient.map((item, idx) => <span key={idx} className="post-list-span">{item}, </span>)}</p>
-                            <input placeholder="e.g. yogurt, banana, etc" className="input-ingredient" name="ingredient" value={ingredientChange} type="text" onChange={handleChangeIngredient} />
-                            <button className="ingredient-button" onClick={handleIngredientClick}>+</button>
-                        </div>
-                        <div className="ingredientBubble-div">
-                            {ingredientBubblesClick && <IngredientBubbles />}
+                            <input placeholder="specify the amount (e.g. 2 cups rice)" className="input-ingredient" name="ingredient" value={ingredientChange} type="text" onChange={handleChangeIngredient} />
+                            <button className="ingredient-button" onClick={handleClickIngredient}>+</button>
                         </div>
                         <div>
                             <input placeholder="add a description" className="input-description" name="recipeDescription" value={input.recipeDescription} type="textarea" onChange={handleChange} />
