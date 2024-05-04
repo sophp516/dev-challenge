@@ -3,7 +3,8 @@ To access deployed website, go to: https://dev-challenge-j8ry.onrender.com
 
 In order to run the code locally
 1. clone the repo
-2. 'npm run dev'
+2. run 'npm run build'
+3. run 'npm run start'
 
 ## Description
 Foodwars is a full-stack website where users can share their custom recipes with others and receive nutrient scores based on the ingredients they use. This is done through an api.
