@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import newtoken from "../utils/token.js";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 /* username: {
     type: String,
