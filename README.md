@@ -6,6 +6,9 @@ In order to run the code locally
 2. run 'npm run build'
 3. run 'npm run start'
 
+## Architecture
+I used react for frontend development. For the backend, I used node, express, mongoDB, mongoose, with a bit of react-query.
+
 ## Description
 Foodwars is a full-stack website where users can share their custom recipes with others and receive nutrient scores based on the ingredients they use. This is done through an api.
 Every midnight, the theme of the day is updated using a random word generating API.
