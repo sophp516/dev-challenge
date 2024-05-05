@@ -102,11 +102,11 @@ function App() {
   };
 
   useInterval(() => {
-    /* const now = new Date();
+    const now = new Date();
     if (now.getHours() === 0 && now.getMinutes() === 0) {
       resetCategories();
-    } */
-    resetCategories();
+    }
+    // resetCategories();
   }, 1000 * 6000); // Check every minute
 
   

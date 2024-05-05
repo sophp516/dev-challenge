@@ -11,6 +11,7 @@ import { useState } from "react";
 const Home = () => {
     const { favorites } = useGetFavorites();
     const [meals, setMeals] = useState([])
+    console.log(favorites)
 
     return (
         <div className="home">

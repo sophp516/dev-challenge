@@ -17,6 +17,7 @@ const Leaderboard = (props) => {
 
     const { data: allCategories, status } = useQuery('allCategories', fetchAllCategories); // Fetch categories using useQuery
     const [ topRecipes, setTopRecipes ] = useState([]);
+    const [name, setName] = useState('');
 
     useEffect(() => {
         if (allCategories) {
@@ -26,13 +27,17 @@ const Leaderboard = (props) => {
         }
     }, [allCategories])
 
+    useEffect(() => {
+        setName(props.categoryName)
+    }, [props.categoryName])
+
 
     return (
         <div className="leaderboard">
             <Navbar />
             <div className="leaderboard-inner">
             <div className="leaderboard-header">
-                <p>{"Today's"} top 100 recipes: <span>{props.categoryName}</span></p>
+                <p>{"Today's"} top 100 recipes: <span>{name}</span></p>
             </div>
             { status === 'loading' ?
             <div className='loading'>loading...</div>

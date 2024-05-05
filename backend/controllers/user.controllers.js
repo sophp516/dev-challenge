@@ -7,13 +7,18 @@ export const saveRecipe = async (req, res) => {
         const userId = req.user._id;
 
         const user = await User.findById(userId);
-
+        console.log(user)
+        console.log(user.favoriteRecipe)
         if (!user) return res.status(200).json({ error: "user not found" });
+        if (!user.favoriteRecipe) {
+            user.favoriteRecipe = [];
+        }
+
         if (user.favoriteRecipe.includes(recipeId)) {
             return res.status(400).json({ error: "Recipe already in favorites" });
         }
 
-        user.favoriteRecipe.push(recipeId);
+        await user.favoriteRecipe.push(recipeId);
         await user.save();
 
 
