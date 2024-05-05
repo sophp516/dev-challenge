@@ -107,7 +107,7 @@ function App() {
       resetCategories();
     } */
     resetCategories();
-  }, 1000 * 60); // Check every minute
+  }, 1000 * 6000); // Check every minute
 
   
 
