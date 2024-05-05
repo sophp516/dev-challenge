@@ -1,5 +1,5 @@
 ## Instruction
-To access deployed website, go to: https://sophie-api-challenge.onrender.com
+To access deployed website, go to: https://sophie-api-challenge.onrender.com](https://dali-dev-challenge-sophie.onrender.com
 
 In order to run the code locally
 1. clone the repo
