@@ -79,7 +79,7 @@ function App() {
 ]); */
   
   const {authUser} = useAuthContext();
-  const {favorites} = useGetFavorites();
+  //const {favorites} = useGetFavorites();
   const {postCategory} = usePostCategory();
   
   const resetCategories = async () => {
@@ -120,7 +120,7 @@ function App() {
       <div className="main">
         <Routes>
           <Route path="/home" element={authUser ? <Home /> : <Navigate to={"/login"} />} />
-          <Route path="/" element={authUser ? <Feed favorites={favorites?.favoriteRecipe} categoryName={categoryName?.categoryDaily} /> : <Navigate to={"/login"} />} />
+          <Route path="/" element={authUser ? <Feed categoryName={categoryName?.categoryDaily} /> : <Navigate to={"/login"} />} />
           <Route path="/post" element={authUser ? <Post/> : <Navigate to={"/login"} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

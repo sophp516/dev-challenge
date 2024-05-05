@@ -9,7 +9,7 @@ import { useState } from "react";
 
 
 const Home = () => {
-    const { favorites } = useGetFavorites();
+    const { favorites, loading } = useGetFavorites();
     const [meals, setMeals] = useState([])
     console.log(favorites)
 
@@ -27,7 +27,8 @@ const Home = () => {
             </div>
             <div className="draggable-container">
                 <h3>Saved Recipes:</h3>
-                {favorites.favoriteRecipe && favorites.favoriteRecipe.map((recipe, i) => {
+                {loading ? <div>loading...</div>
+                : favorites.favoriteRecipe && favorites.favoriteRecipe.map((recipe, i) => {
                     return (
                         <DraggableComponent 
                         recipe={recipe} 

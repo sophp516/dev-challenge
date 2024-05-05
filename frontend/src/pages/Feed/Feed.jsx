@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Recipe from '../../components/Recipe/Recipe';
 import Navbar from '../../components/Navbar/Navbar';
 import { useQuery } from 'react-query';
+import useGetFavorites from '../../hooks/useGetFavorites.js';
 import './Feed.css';
 
 const fetchAllPosts = async () => {
@@ -15,6 +16,7 @@ const fetchAllPosts = async () => {
 
 const Feed = (props) => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
+    const { favorites } = useGetFavorites();
     const [favoriteRecipes, setFavoriteRecipes] = useState([]);
     const [saveTrigger, setSaveTrigger] = useState(false)
 
@@ -28,11 +30,6 @@ const Feed = (props) => {
         setSaveTrigger(true);
     }
 
-    useEffect(() => {
-        if (props.favorites) {
-            setFavoriteRecipes((props.favorites).map((item) => item._id))
-        }
-    }, [props.favorites])
 
     if (status === 'loading') return <div className="loading">Loading...</div>;
     if (status === 'error') return <div>Error fetching data</div>;

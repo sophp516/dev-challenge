@@ -40,3 +40,7 @@
 .rank-recipe-container {
     width: 100%;
 }
+
+.no-recipe {
+    text-align: center;
+}

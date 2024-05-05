@@ -69,8 +69,9 @@ export const post = async (req, res) => {
             return res.status(500).json({ error: "Error saving recipe" });
         }
 
+        // if recipe adheres to category
         if (category) {
-            const categoryRef = await Category.findOne(); // Find the single category
+            const categoryRef = await Category.findOne(); // find the single category
             if (!categoryRef) {
                 // Create the category if it doesn't exist (should only happen once)
                 const newCategory = new Category({ categoryRecipes: [newRecipe._id] });
@@ -105,6 +106,7 @@ export const getallposts = async (req, res) => {
 
 export const getallcategories = async (req, res) => {
     try {
+        // populate id references
         const allcategories = await Category.find().populate('categoryRecipes');
 
         if (!allcategories || allcategories.length === 0) return res.status(200).json([]);
@@ -119,11 +121,13 @@ export const postCategoryName = async (req, res) => {
     try {
         const { newCategory } = req.body;
         const categoryName = await CategoryName.findOne();
-
+        
+        // initialize category
         if (!categoryName) {
             const categoryName = new CategoryName({ categoryDaily: newCategory });
             await categoryName.save();
             res.status(201).json({ message: "Category name created successfully", category: categoryName });
+        // or update category
         } else {
             categoryName.categoryDaily = newCategory;
             await categoryName.save();
@@ -149,13 +153,13 @@ export const getCategoryName = async (req, res) => {
 
 export const deleteAllCategories = async (req, res) => {
     try {
-      // Use Mongoose to delete all documents from the Category collection
+      // use Mongoose to delete all documents from the Category collection
       await Category.deleteMany();
   
-      // If successful, return a success message
+      // if successful
       return res.status(200).json({ message: "All categories deleted successfully" });
     } catch (err) {
-      // If an error occurs, log the error and return a 500 status with an error message
+      // if an error occurs
       console.log(err);
       return res.status(500).json({ error: "Internal server error" });
     }

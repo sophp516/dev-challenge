@@ -41,6 +41,9 @@ const Leaderboard = (props) => {
             </div>
             { status === 'loading' ?
             <div className='loading'>loading...</div>
+            : 
+            topRecipes?.length == 0 ?
+            <div className="no-recipe">no recipes yet</div>
             : topRecipes?.map((recipe, i) => {
                 return (
                     <div key={i} className="rank-recipe-container">

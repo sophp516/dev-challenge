@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSaveRecipe from '../../hooks/useSaveRecipe.js';
+import useGetFavorites from '../../hooks/useGetFavorites.js';
 import './Recipe.css';
 
 const Recipe = (props) => {
@@ -8,7 +9,9 @@ const Recipe = (props) => {
     const [unfoldRecipe, setUnfoldRecipe] = useState(false);
     const { saveRecipe } = useSaveRecipe();
     const navigateTo = useNavigate();
+    const { favorites } = useGetFavorites();
 
+    
 
     useEffect(() => {
         setRecipeData(props.recipe)
@@ -61,6 +64,7 @@ const Recipe = (props) => {
         await saveRecipe(recipeData._id);
         navigateTo("/home");
     }
+
 
     return (
         <div>
