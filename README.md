@@ -1,3 +1,6 @@
+## Video
+https://youtu.be/Vzxyo3gnTsk
+
 ## Instruction
 To access deployed website, go to: https://dali-dev-challenge-sophie.onrender.com
 
